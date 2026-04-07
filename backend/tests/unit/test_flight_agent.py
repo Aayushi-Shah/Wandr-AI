@@ -119,4 +119,4 @@ def test_flight_agent_no_client_raises_not_implemented() -> None:
     agent = FlightAgent()  # uses _UnimplementedFlightClient
     with pytest.raises(NotImplementedError):
         import asyncio
-        asyncio.get_event_loop().run_until_complete(agent.run(make_task()))
+        asyncio.run(agent.run(make_task()))

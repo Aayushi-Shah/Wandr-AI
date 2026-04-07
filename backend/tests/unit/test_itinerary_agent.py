@@ -108,4 +108,4 @@ def test_itinerary_agent_no_client_raises_not_implemented() -> None:
     agent = ItineraryAgent()
     with pytest.raises(NotImplementedError):
         import asyncio
-        asyncio.get_event_loop().run_until_complete(agent.run(make_task()))
+        asyncio.run(agent.run(make_task()))
