@@ -1,0 +1,16 @@
+# Root-level dockerignore (used for frontend build context = repo root)
+node_modules
+.pnpm-store
+**/.next
+**/dist
+**/__pycache__
+**/.venv
+**/.pytest_cache
+**/.ruff_cache
+**/*.pyc
+.env
+.env.local
+.git
+.gitignore
+.claude
+*.md
