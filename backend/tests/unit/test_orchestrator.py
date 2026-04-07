@@ -83,10 +83,10 @@ async def test_orchestrator_one_failed_agent_does_not_crash() -> None:
     task = make_task()
     sub_tasks = make_sub_tasks(task)
 
-    # Patch FlightStubAgent to raise
+    # Patch FlightAgent to raise
     with patch.object(agent, "_decompose", new=AsyncMock(return_value=sub_tasks)):
         with patch(
-            "app.agents.orchestrator.FlightStubAgent.run",
+            "app.agents.orchestrator.FlightAgent.run",
             side_effect=RuntimeError("flight service down"),
         ):
             result = await agent.execute(task)
@@ -107,10 +107,10 @@ async def test_orchestrator_all_failed_gives_failed_status() -> None:
 
     with patch.object(agent, "_decompose", new=AsyncMock(return_value=sub_tasks)):
         with (
-            patch("app.agents.orchestrator.FlightStubAgent.run", side_effect=err),
-            patch("app.agents.orchestrator.HotelStubAgent.run", side_effect=err),
-            patch("app.agents.orchestrator.ItineraryStubAgent.run", side_effect=err),
-            patch("app.agents.orchestrator.BudgetStubAgent.run", side_effect=err),
+            patch("app.agents.orchestrator.FlightAgent.run", side_effect=err),
+            patch("app.agents.orchestrator.HotelAgent.run", side_effect=err),
+            patch("app.agents.orchestrator.ItineraryAgent.run", side_effect=err),
+            patch("app.agents.orchestrator.BudgetAgent.run", side_effect=err),
         ):
             result = await agent.execute(task)
 
@@ -137,10 +137,22 @@ async def test_synthesize_never_raises() -> None:
 
 
 async def test_orchestrator_summary_mentions_destination() -> None:
+    """When all agents succeed, summary names the destination."""
+    from app.agents.models import AgentResult as AR
+
     agent = OrchestratorAgent()
     task = make_task(destination="Tokyo")
+    sub_tasks = make_sub_tasks(task)
 
-    with patch.object(agent, "_decompose", new=AsyncMock(return_value=make_sub_tasks(task))):
-        result = await agent.execute(task)
+    ok = AR(task_id="x", agent_name="flight", status=AgentStatus.DONE)
+
+    with patch.object(agent, "_decompose", new=AsyncMock(return_value=sub_tasks)):
+        with (
+            patch("app.agents.orchestrator.FlightAgent.run", new=AsyncMock(return_value=ok)),
+            patch("app.agents.orchestrator.HotelAgent.run", new=AsyncMock(return_value=ok)),
+            patch("app.agents.orchestrator.ItineraryAgent.run", new=AsyncMock(return_value=ok)),
+            patch("app.agents.orchestrator.BudgetAgent.run", new=AsyncMock(return_value=ok)),
+        ):
+            result = await agent.execute(task)
 
     assert "Tokyo" in result.summary

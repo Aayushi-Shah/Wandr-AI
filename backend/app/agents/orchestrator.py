@@ -14,13 +14,11 @@ from typing import Any
 import anthropic
 import structlog
 
-from app.agents._stubs import (  # replaced by real agents in P1.3-P1.6
-    BudgetStubAgent,
-    FlightStubAgent,
-    HotelStubAgent,
-    ItineraryStubAgent,
-)
 from app.agents.base import BaseAgent
+from app.agents.budget import BudgetAgent
+from app.agents.flight import FlightAgent
+from app.agents.hotel import HotelAgent
+from app.agents.itinerary import ItineraryAgent
 from app.agents.models import AgentResult, AgentStatus, AgentTask
 
 logger = structlog.get_logger(__name__)
@@ -70,9 +68,9 @@ class OrchestratorAgent(BaseAgent):
         # 2. Fan-out: Flight / Hotel / Itinerary in parallel, Budget fans in last
         parallel_results: list[AgentResult | BaseException] = list(
             await asyncio.gather(
-                FlightStubAgent().execute(sub_tasks["flight"]),
-                HotelStubAgent().execute(sub_tasks["hotel"]),
-                ItineraryStubAgent().execute(sub_tasks["itinerary"]),
+                FlightAgent().execute(sub_tasks["flight"]),
+                HotelAgent().execute(sub_tasks["hotel"]),
+                ItineraryAgent().execute(sub_tasks["itinerary"]),
                 return_exceptions=True,
             )
         )
@@ -90,7 +88,7 @@ class OrchestratorAgent(BaseAgent):
         )
         budget_result: AgentResult | BaseException
         try:
-            budget_result = await BudgetStubAgent().execute(budget_task)
+            budget_result = await BudgetAgent().execute(budget_task)
         except Exception as exc:  # noqa: BLE001
             budget_result = exc
 
