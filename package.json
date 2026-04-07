@@ -1,0 +1,14 @@
+{
+  "name": "wandr-ai",
+  "private": true,
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev:frontend": "pnpm --filter @wandr/frontend dev",
+    "test": "make test",
+    "lint": "make lint"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
