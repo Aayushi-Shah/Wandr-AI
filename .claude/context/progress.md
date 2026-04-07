@@ -5,8 +5,8 @@ update: every session end
 
 # Progress
 
-## Active: P1.3 — FlightAgent
-Branch: feat/P1.3-flight-agent
+## Active: P1.7 — Celery task queue
+Branch: feat/P1.7-celery-task-queue
 
 ---
 
@@ -20,10 +20,10 @@ Branch: feat/P1.3-flight-agent
 ## Phase 1 — Agent Infrastructure: 0/8
 - [x] P1.1  BaseAgent abstract class
 - [x] P1.2  OrchestratorAgent
-- [ ] P1.3  FlightAgent
-- [ ] P1.4  HotelAgent
-- [ ] P1.5  ItineraryAgent
-- [ ] P1.6  BudgetAgent
+- [x] P1.3  FlightAgent
+- [x] P1.4  HotelAgent
+- [x] P1.5  ItineraryAgent
+- [x] P1.6  BudgetAgent
 - [ ] P1.7  Celery task queue
 - [ ] P1.8  Agent state machine (Redis)
 
@@ -73,3 +73,4 @@ Branch: feat/P1.3-flight-agent
 <!-- 2026-04-07 P0.5 — 7 ADRs written; Phase 0 complete; phase-0-summary.md written -->
 <!-- 2026-04-07 P1.1 — BaseAgent + AgentTask/AgentResult/AgentStatus; shared/src/agents.ts synced; 8 tests pass -->
 <!-- 2026-04-07 P1.2 — OrchestratorAgent: Claude decompose + asyncio.gather fan-out + synthesize; stub agents in _stubs.py; 14 tests pass; all branches pushed to GitHub + main created -->
+<!-- 2026-04-07 P1.3-P1.6 — FlightAgent, HotelAgent, ItineraryAgent, BudgetAgent; injectable Protocol clients; stubs deleted; shared/src/trip.ts updated; 42 tests pass -->

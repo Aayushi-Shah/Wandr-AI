@@ -14,7 +14,11 @@ _Format: `path/to/file.py → ClassName or func_name() — what it does`_
 <!-- backend/app/agents/models.py → AgentStatus, AgentTask, AgentResult — Pydantic v2 agent contracts -->
 <!-- backend/app/agents/base.py → BaseAgent — abstract, execute() with 30s timeout + structlog -->
 <!-- backend/app/agents/orchestrator.py → OrchestratorAgent — Claude decompose, asyncio.gather fan-out, synthesize -->
-<!-- backend/app/agents/_stubs.py → FlightStubAgent, HotelStubAgent, ItineraryStubAgent, BudgetStubAgent — test stubs -->
+<!-- backend/app/agents/flight.py → FlightAgent — injectable FlightSearchClient, ranks by price+duration -->
+<!-- backend/app/agents/hotel.py → HotelAgent — injectable HotelSearchClient, scores rating×value -->
+<!-- backend/app/agents/itinerary.py → ItineraryAgent — injectable PlacesClient, 3 acts/day round-robin -->
+<!-- backend/app/agents/budget.py → BudgetAgent — aggregates parallel results, over_budget flag -->
+<!-- backend/app/agents/models.py → + FlightOption, HotelOption, Activity, DayPlan, BudgetSummary -->
 
 <!-- app/main.py → create_app() — FastAPI app factory -->
 <!-- app/core/config.py → Settings — pydantic-settings root config object -->

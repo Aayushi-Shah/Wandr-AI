@@ -154,11 +154,12 @@ make lint           # ruff + eslint
 
 ## Current session
 
-**Working on:** P1.3 — FlightAgent
+**Working on:** P1.7 — Celery task queue
 
-**Goal:** Implement FlightAgent using web search MCP; rank FlightOption results. Unit tests.
+**Goal:** Wire each specialist agent as a Celery task; group() for parallel fan-out, chord for Budget fan-in.
 
 **Notes:**
-- Inherits BaseAgent — `name = "flight"`
-- Replaces FlightStubAgent in `_stubs.py`; update import in `orchestrator.py` when done
-- MCP registry not yet built (P2.1) — wire directly for now, extract to registry in P2.2
+- Celery app already bootstrapped in `app/tasks/celery_app.py` (stub from P0.2)
+- Tasks wrap agent.execute() — one task per agent
+- Use celery group() for Flight/Hotel/Itinerary parallel; chord() for Budget fan-in
+- Redis broker already configured in docker-compose
