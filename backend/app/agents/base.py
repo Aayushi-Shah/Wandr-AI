@@ -1,71 +1,23 @@
 import asyncio
 import time
 from abc import ABC, abstractmethod
-from enum import Enum
-from typing import Any
 
 import structlog
-from pydantic import BaseModel, Field
+
+from app.agents.models import AgentResult, AgentStatus, AgentTask  # noqa: F401 — re-exported
 
 logger = structlog.get_logger(__name__)
 
 
-# ── Agent status ──────────────────────────────────────────────────────────────
-
-class AgentStatus(str, Enum):
-    PENDING = "PENDING"
-    RUNNING = "RUNNING"
-    DONE = "DONE"
-    FAILED = "FAILED"
-
-
-# ── Data contracts ────────────────────────────────────────────────────────────
-
-class AgentTask(BaseModel):
-    """Input contract for every specialist agent.
-
-    The Orchestrator populates this from its Claude decomposition.
-    context carries results from upstream agents (used by BudgetAgent fan-in).
-    """
-
-    task_id: str = Field(..., description="Shared ID for the entire trip-planning request")
-    agent_name: str = Field(..., description="Which agent should handle this task")
-    destination: str
-    start_date: str = Field(..., description="ISO date string YYYY-MM-DD")
-    end_date: str = Field(..., description="ISO date string YYYY-MM-DD")
-    budget: float = Field(..., gt=0)
-    currency: str = Field(default="USD", min_length=3, max_length=3)
-    raw_request: str = Field(
-        default="", description="Original user prompt, for Orchestrator context"
-    )
-    context: dict[str, Any] = Field(
-        default_factory=dict,
-        description="Results from upstream agents (e.g. flight cost passed to BudgetAgent)",
-    )
-
-
-class AgentResult(BaseModel):
-    """Output contract for every specialist agent."""
-
-    task_id: str
-    agent_name: str
-    status: AgentStatus
-    summary: str = ""
-    data: dict[str, Any] = Field(default_factory=dict)
-    error: str | None = None
-    duration_ms: float | None = None
-
-
-# ── Base class ────────────────────────────────────────────────────────────────
-
 class BaseAgent(ABC):
     """Abstract base class all wandr-ai agents inherit from.
 
-    Subclasses must set `name` and implement `run()`.
-    Call `execute()` — never `run()` directly — to get timeout + logging.
+    Subclasses must set ``name`` and implement ``run()``.
+    Always call ``execute()`` — never ``run()`` directly — to get
+    timeout enforcement, structured logging, and timing.
     """
 
-    name: str  # Set on the subclass, e.g. name = "flight"
+    name: str  # Set on each subclass, e.g. name = "flight"
     timeout: float = 30.0  # Override in tests to speed up timeout assertions
 
     async def execute(self, task: AgentTask) -> AgentResult:
