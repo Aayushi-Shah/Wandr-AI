@@ -50,13 +50,15 @@ shared/src/events.ts         ← typed SSE event contracts
 - **ADR-005** App factory — `create_app()` gives each test a fresh instance, no shared state
 - **ADR-006** Redis for agent state (ephemeral, 1hr TTL), PostgreSQL for trips (durable)
 - **ADR-007** Calendar MCP behind feature flag — OAuth opt-in; currency MCP has fallback cache
+- **ADR-008** Conversation threading — `conversations` table + `POST /trips/{id}/refine`; Orchestrator receives history in context; P4.2 is a chat thread
 
 ---
 
 ## Agent design
 ```
-User prompt
-  → Claude: decompose → JSON sub-tasks
+User message (new or refine)
+  → POST /trips  or  POST /trips/{id}/refine
+  → OrchestratorAgent._decompose()  (gets full conversation history in context)
   → Celery group: [FlightTask, HotelTask, ItineraryTask]  ← parallel
   → BudgetTask: fan-in after all three
   → Claude: synthesize → TripPlan
@@ -67,6 +69,19 @@ Agent state machine (Redis key `agent:{task_id}:{agent_name}`):
 
 SSE event types (shared/src/events.ts):
 `agent_started · agent_progress · agent_done · agent_failed · orchestrator_synthesis · trip_complete`
+
+## Conversation design (ADR-008)
+```
+conversations        trips (one per re-plan)
+  id                   id
+  user_id              conversation_id  ← FK
+  created_at           message          ← what the user said to trigger this plan
+                       parent_trip_id   ← nullable, previous version
+```
+- `POST /trips` creates a new conversation + first trip
+- `POST /trips/{id}/refine` adds a message to existing conversation, re-runs relevant agents
+- OrchestratorAgent receives `conversation_history` in `AgentTask.context`
+- Frontend P4.2 is a chat thread (message list + streaming plan) not a single input
 
 ---
 

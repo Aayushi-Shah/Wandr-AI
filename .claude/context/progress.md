@@ -34,19 +34,21 @@ Branch: feat/P2.1-mcp-registry
 - [ ] P2.4  Currency + Calendar MCP
 - [ ] P2.5  MCP error handling + circuit breaker
 
-## Phase 3 — Backend API & Streaming: 0/5
-- [ ] P3.1  OpenAPI spec first
+## Phase 3 — Backend API & Streaming: 0/6
+- [ ] P3.1  OpenAPI spec first  ← include conversation_id + message fields (ADR-008)
 - [ ] P3.2  SSE streaming endpoint
-- [ ] P3.3  PostgreSQL + Alembic
+- [ ] P3.3  PostgreSQL + Alembic  ← add conversations table + conversation_id FK on trips
 - [ ] P3.4  JWT auth + refresh tokens
 - [ ] P3.5  OpenTelemetry tracing
+- [ ] P3.6  POST /trips/{id}/refine — multi-turn re-plan endpoint
 
-## Phase 4 — Frontend Core: 0/5
+## Phase 4 — Frontend Core: 0/6
 - [ ] P4.1  App layout + auth flow
-- [ ] P4.2  Chat input + streaming display
+- [ ] P4.2  Chat thread + streaming display  ← thread not single input (ADR-008)
 - [ ] P4.3  Live agent status panel
 - [ ] P4.4  Itinerary timeline
 - [ ] P4.5  Trip summary + budget chart
+- [ ] P4.6  Conversation history sidebar
 
 ## Phase 5 — Interactive Features: 0/5
 - [ ] P5.1  Mapbox itinerary map
@@ -76,3 +78,4 @@ Branch: feat/P2.1-mcp-registry
 <!-- 2026-04-07 P1.3-P1.6 — FlightAgent, HotelAgent, ItineraryAgent, BudgetAgent; injectable Protocol clients; stubs deleted; shared/src/trip.ts updated; 42 tests pass -->
 <!-- 2026-04-07 P1.7 — Celery app, agent_tasks (flight/hotel/itinerary/budget), trip_pipeline group+chord; 49 tests pass -->
 <!-- 2026-04-07 P1.8 — AgentStateStore (Redis, 1hr TTL), PENDING→RUNNING→DONE|FAILED wired into tasks; fakeredis in test deps; 58 tests pass -->
+<!-- 2026-04-07 — ADR-008: conversation threading baked into P3+P4 roadmap; conversations table, conversation_id on trips, POST /trips/{id}/refine, P4.2 becomes chat thread -->
