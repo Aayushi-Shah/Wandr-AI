@@ -17,6 +17,9 @@ class AgentStatus(str, Enum):
     FAILED = "FAILED"
 
 
+AGENT_NAMES: tuple[str, ...] = ("flight", "hotel", "itinerary", "budget", "orchestrator")
+
+
 class AgentTask(BaseModel):
     """Input contract for every specialist agent.
 
