@@ -76,12 +76,14 @@ conversations        trips (one per re-plan)
   id                   id
   user_id              conversation_id  ← FK
   created_at           message          ← what the user said to trigger this plan
-                       parent_trip_id   ← nullable, previous version
+                       parent_trip_id   ← nullable, links to previous version
 ```
-- `POST /trips` creates a new conversation + first trip
-- `POST /trips/{id}/refine` adds a message to existing conversation, re-runs relevant agents
-- OrchestratorAgent receives `conversation_history` in `AgentTask.context`
-- Frontend P4.2 is a chat thread (message list + streaming plan) not a single input
+- `POST /trips` → new Conversation + first Trip (one-shot flow unchanged)
+- `POST /trips/{id}/refine` → `_classify_changes(message, current_trip)` → Claude
+  returns `agents_to_rerun` list → only those agents re-run; others reuse prior result
+- Budget **always** re-runs (costs may shift even on partial updates)
+- OrchestratorAgent receives `conversation_history` + `reused_results` in `AgentTask.context`
+- Frontend P4.2 is a chat thread (message list + inline streaming plan cards)
 
 ---
 

@@ -40,7 +40,7 @@ Branch: feat/P2.1-mcp-registry
 - [ ] P3.3  PostgreSQL + Alembic  ← add conversations table + conversation_id FK on trips
 - [ ] P3.4  JWT auth + refresh tokens
 - [ ] P3.5  OpenTelemetry tracing
-- [ ] P3.6  POST /trips/{id}/refine — multi-turn re-plan endpoint
+- [ ] P3.6  POST /trips/{id}/refine — selective re-run via _classify_changes() (ADR-008)
 
 ## Phase 4 — Frontend Core: 0/6
 - [ ] P4.1  App layout + auth flow
