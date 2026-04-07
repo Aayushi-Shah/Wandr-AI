@@ -1,0 +1,17 @@
+{
+  "name": "@wandr/shared",
+  "version": "0.1.0",
+  "description": "Shared TypeScript types for wandr-ai",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
