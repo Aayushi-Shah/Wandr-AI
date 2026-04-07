@@ -9,6 +9,7 @@ from app.core.config import Settings, get_settings
 from app.core.database import close_db, init_db
 from app.core.logging import configure_logging
 from app.core.redis import close_redis, init_redis
+from app.mcp.registry import MCPRegistry
 
 logger = structlog.get_logger(__name__)
 
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     settings: Settings = app.state.settings
     await init_db(settings.database_url)
     await init_redis(settings.redis_url)
+    app.state.mcp_registry = MCPRegistry.from_settings()
     logger.info("wandr-backend started", env=settings.otel_service_name)
     yield
     await close_db()

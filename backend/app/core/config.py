@@ -15,17 +15,21 @@ class Settings(BaseSettings):
     # Anthropic
     anthropic_api_key: str = ""
 
+    # Tavily search
+    tavily_api_key: str = ""
+
     # JWT
     jwt_secret_key: str = "change-me-must-be-at-least-32-characters-long"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 15
     refresh_token_expire_days: int = 7
 
-    # MCP server URLs
-    mcp_web_search_url: str = "https://search.mcp.anthropic.com"
-    mcp_maps_url: str = "https://maps.mcp.anthropic.com"
-    mcp_weather_url: str = "https://weather.mcp.anthropic.com"
-    mcp_currency_url: str = "https://currency.mcp.anthropic.com"
+    # External data API base URLs (used by MCP providers)
+    open_meteo_url: str = "https://api.open-meteo.com/v1"
+    open_meteo_geocoding_url: str = "https://geocoding-api.open-meteo.com/v1"
+    frankfurter_url: str = "https://api.frankfurter.dev"
+
+    # Calendar MCP (OAuth opt-in — ADR-007)
     mcp_calendar_url: str = "https://gcal.mcp.claude.com/mcp"
 
     # Feature flags
