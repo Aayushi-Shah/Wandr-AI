@@ -1,0 +1,10 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "no-restricted-globals": [
+      "error",
+      { "name": "localStorage", "message": "Use Zustand store instead." },
+      { "name": "sessionStorage", "message": "Use Zustand store instead." }
+    ]
+  }
+}

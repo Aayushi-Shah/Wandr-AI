@@ -25,4 +25,4 @@ migration:
 
 lint:
 	cd backend && ruff check app/ tests/
-	pnpm --filter @wandr/frontend exec eslint src/ --max-warnings 0
+	pnpm --filter @wandr/frontend run lint
