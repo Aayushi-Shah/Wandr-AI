@@ -5,8 +5,8 @@ update: every session end
 
 # Progress
 
-## Active: P1.7 — Celery task queue
-Branch: feat/P1.7-celery-task-queue
+## Active: P2.1 — MCP registry + client setup
+Branch: feat/P2.1-mcp-registry
 
 ---
 
@@ -24,8 +24,8 @@ Branch: feat/P1.7-celery-task-queue
 - [x] P1.4  HotelAgent
 - [x] P1.5  ItineraryAgent
 - [x] P1.6  BudgetAgent
-- [ ] P1.7  Celery task queue
-- [ ] P1.8  Agent state machine (Redis)
+- [x] P1.7  Celery task queue
+- [x] P1.8  Agent state machine (Redis)
 
 ## Phase 2 — MCP Integration: 0/5
 - [ ] P2.1  MCP registry + client setup
@@ -74,3 +74,5 @@ Branch: feat/P1.7-celery-task-queue
 <!-- 2026-04-07 P1.1 — BaseAgent + AgentTask/AgentResult/AgentStatus; shared/src/agents.ts synced; 8 tests pass -->
 <!-- 2026-04-07 P1.2 — OrchestratorAgent: Claude decompose + asyncio.gather fan-out + synthesize; stub agents in _stubs.py; 14 tests pass; all branches pushed to GitHub + main created -->
 <!-- 2026-04-07 P1.3-P1.6 — FlightAgent, HotelAgent, ItineraryAgent, BudgetAgent; injectable Protocol clients; stubs deleted; shared/src/trip.ts updated; 42 tests pass -->
+<!-- 2026-04-07 P1.7 — Celery app, agent_tasks (flight/hotel/itinerary/budget), trip_pipeline group+chord; 49 tests pass -->
+<!-- 2026-04-07 P1.8 — AgentStateStore (Redis, 1hr TTL), PENDING→RUNNING→DONE|FAILED wired into tasks; fakeredis in test deps; 58 tests pass -->

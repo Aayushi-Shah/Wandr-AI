@@ -18,7 +18,11 @@ _Format: `path/to/file.py → ClassName or func_name() — what it does`_
 <!-- backend/app/agents/hotel.py → HotelAgent — injectable HotelSearchClient, scores rating×value -->
 <!-- backend/app/agents/itinerary.py → ItineraryAgent — injectable PlacesClient, 3 acts/day round-robin -->
 <!-- backend/app/agents/budget.py → BudgetAgent — aggregates parallel results, over_budget flag -->
-<!-- backend/app/agents/models.py → + FlightOption, HotelOption, Activity, DayPlan, BudgetSummary -->
+<!-- backend/app/agents/models.py → + FlightOption, HotelOption, Activity, DayPlan, BudgetSummary, AGENT_NAMES -->
+<!-- backend/app/agents/state.py → AgentStateStore — Redis PENDING→RUNNING→DONE|FAILED, 1hr TTL -->
+<!-- backend/app/tasks/celery_app.py → create_celery() — Celery instance from Settings -->
+<!-- backend/app/tasks/agent_tasks.py → flight/hotel/itinerary/budget Celery tasks with state transitions -->
+<!-- backend/app/tasks/trip_pipeline.py → build_trip_chord(), dispatch_trip() — group+chord pipeline -->
 
 <!-- app/main.py → create_app() — FastAPI app factory -->
 <!-- app/core/config.py → Settings — pydantic-settings root config object -->

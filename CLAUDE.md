@@ -154,12 +154,11 @@ make lint           # ruff + eslint
 
 ## Current session
 
-**Working on:** P1.7 — Celery task queue
+**Working on:** P2.1 — MCP registry + client setup
 
-**Goal:** Wire each specialist agent as a Celery task; group() for parallel fan-out, chord for Budget fan-in.
+**Goal:** MCPRegistry that maps tool names to MCP server URLs; async client wrapper.
 
 **Notes:**
-- Celery app already bootstrapped in `app/tasks/celery_app.py` (stub from P0.2)
-- Tasks wrap agent.execute() — one task per agent
-- Use celery group() for Flight/Hotel/Itinerary parallel; chord() for Budget fan-in
-- Redis broker already configured in docker-compose
+- `app/mcp/registry.py` — MCPRegistry with register/get_client; one-line to add new server
+- Client wraps `anthropic` SDK MCP tool calls
+- Agents' Protocol interfaces (FlightSearchClient etc.) will be satisfied by MCP adapters in P2.2–P2.4
