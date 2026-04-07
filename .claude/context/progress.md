@@ -5,21 +5,21 @@ update: every session end
 
 # Progress
 
-## Active: P0.2 — FastAPI backend skeleton with app factory
-Branch: feat/P0.2-fastapi-skeleton
+## Active: P1.3 — FlightAgent
+Branch: feat/P1.3-flight-agent
 
 ---
 
-## Phase 0 — Setup & Architecture: 1/5
+## Phase 0 — Setup & Architecture: 5/5 ✓
 - [x] P0.1  Initialize monorepo with pnpm workspaces
-- [ ] P0.2  FastAPI backend skeleton with app factory
-- [ ] P0.3  Next.js 14 frontend with App Router
-- [ ] P0.4  Docker Compose local dev
-- [ ] P0.5  ADR docs + structure decisions
+- [x] P0.2  FastAPI backend skeleton with app factory
+- [x] P0.3  Next.js 14 frontend with App Router
+- [x] P0.4  Docker Compose local dev
+- [x] P0.5  ADR docs + structure decisions
 
 ## Phase 1 — Agent Infrastructure: 0/8
-- [ ] P1.1  BaseAgent abstract class
-- [ ] P1.2  OrchestratorAgent
+- [x] P1.1  BaseAgent abstract class
+- [x] P1.2  OrchestratorAgent
 - [ ] P1.3  FlightAgent
 - [ ] P1.4  HotelAgent
 - [ ] P1.5  ItineraryAgent
@@ -67,3 +67,9 @@ Branch: feat/P0.2-fastapi-skeleton
 <!-- [DATE] P{ID} — one-line summary, any key decisions or pivots -->
 <!-- 2026-04-07 — context management system + automation hooks scaffolded before P0.1 -->
 <!-- 2026-04-07 P0.1 — monorepo scaffold complete; Node switched to v20, pnpm@9 installed; tsconfig fix for skeleton (next-env.d.ts can't be included manually) -->
+<!-- 2026-04-07 P0.2 — FastAPI app factory, structlog JSON, lifespan DB+Redis; needed backend/.venv (macOS PEP 668 blocks global pip) -->
+<!-- 2026-04-07 P0.3 — Next.js 14 App Router, Tailwind, Framer Motion provider; eslint-config-next doesn't bundle @typescript-eslint plugin; use run lint not exec eslint -->
+<!-- 2026-04-07 P0.4 — docker-compose with postgres/redis/jaeger/backend/frontend; celery behind --profile worker; frontend needs root build context for pnpm workspace -->
+<!-- 2026-04-07 P0.5 — 7 ADRs written; Phase 0 complete; phase-0-summary.md written -->
+<!-- 2026-04-07 P1.1 — BaseAgent + AgentTask/AgentResult/AgentStatus; shared/src/agents.ts synced; 8 tests pass -->
+<!-- 2026-04-07 P1.2 — OrchestratorAgent: Claude decompose + asyncio.gather fan-out + synthesize; stub agents in _stubs.py; 14 tests pass; all branches pushed to GitHub + main created -->

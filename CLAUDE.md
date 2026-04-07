@@ -154,16 +154,11 @@ make lint           # ruff + eslint
 
 ## Current session
 
-**Working on:** P0.2 — FastAPI backend skeleton with app factory
+**Working on:** P1.3 — FlightAgent
 
-**Goal:** Wire up `create_app()`, structlog JSON logging, and lifespan startup for DB + Redis.
-
-**Commits this session:**
-1. `feat: fastapi app factory with versioned routers`
-2. `feat: structlog json logging`
-3. `feat: lifespan for db/redis startup`
+**Goal:** Implement FlightAgent using web search MCP; rank FlightOption results. Unit tests.
 
 **Notes:**
-- App factory pattern: `create_app()` returns a `FastAPI` instance — never module-level `app = FastAPI()`
-- Every route must be async
-- Settings via pydantic-settings only — never `os.environ` directly
+- Inherits BaseAgent — `name = "flight"`
+- Replaces FlightStubAgent in `_stubs.py`; update import in `orchestrator.py` when done
+- MCP registry not yet built (P2.1) — wire directly for now, extract to registry in P2.2

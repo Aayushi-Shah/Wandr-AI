@@ -11,6 +11,11 @@ _Format: `path/to/file.py → ClassName or func_name() — what it does`_
 
 ## Backend (`backend/`)
 
+<!-- backend/app/agents/models.py → AgentStatus, AgentTask, AgentResult — Pydantic v2 agent contracts -->
+<!-- backend/app/agents/base.py → BaseAgent — abstract, execute() with 30s timeout + structlog -->
+<!-- backend/app/agents/orchestrator.py → OrchestratorAgent — Claude decompose, asyncio.gather fan-out, synthesize -->
+<!-- backend/app/agents/_stubs.py → FlightStubAgent, HotelStubAgent, ItineraryStubAgent, BudgetStubAgent — test stubs -->
+
 <!-- app/main.py → create_app() — FastAPI app factory -->
 <!-- app/core/config.py → Settings — pydantic-settings root config object -->
 <!-- app/core/database.py → get_db() — async SQLAlchemy session dependency -->
