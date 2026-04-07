@@ -16,8 +16,8 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
-      "@wandr/shared": ["../../shared/src"],
-      "@wandr/shared/*": ["../../shared/src/*"]
+      "@wandr/shared": ["../shared/src"],
+      "@wandr/shared/*": ["../shared/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

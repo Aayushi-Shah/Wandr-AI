@@ -4,7 +4,7 @@ dev:
 	docker-compose up
 
 dev-backend:
-	cd packages/backend && uvicorn app.main:create_app --factory --reload --port 8000
+	cd backend && uvicorn app.main:create_app --factory --reload --port 8000
 
 dev-frontend:
 	pnpm --filter @wandr/frontend dev
@@ -12,17 +12,17 @@ dev-frontend:
 test: test-backend test-frontend
 
 test-backend:
-	cd packages/backend && python -m pytest tests/ -x -q
+	cd backend && python -m pytest tests/ -x -q
 
 test-frontend:
 	pnpm --filter @wandr/frontend exec playwright test
 
 migrate:
-	cd packages/backend && alembic upgrade head
+	cd backend && alembic upgrade head
 
 migration:
-	cd packages/backend && alembic revision --autogenerate -m "$(msg)"
+	cd backend && alembic revision --autogenerate -m "$(msg)"
 
 lint:
-	cd packages/backend && ruff check app/ tests/
+	cd backend && ruff check app/ tests/
 	pnpm --filter @wandr/frontend exec eslint src/ --max-warnings 0
